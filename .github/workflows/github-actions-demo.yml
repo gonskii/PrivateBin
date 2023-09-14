@@ -18,5 +18,8 @@ jobs:
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - uses: php-actions/composer@v6 # or alternative dependency management
-      - uses: php-actions/phpunit@v3
+      - uses: php-actions/phpunit@v3 
+        with:
+          php_extensions: gd
 
+  
