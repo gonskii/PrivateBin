@@ -17,6 +17,8 @@ jobs:
         run: |
           ls ${{ github.workspace }}
       - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Migrate PHPUnit Configuration
+        run: ./vendor/bin/phpunit --migrate-configuration
       - uses: php-actions/composer@v6 # or alternative dependency management
       - uses: php-actions/phpunit@v3 
         with:
