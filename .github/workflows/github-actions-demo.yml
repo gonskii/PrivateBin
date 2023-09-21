@@ -30,4 +30,4 @@ jobs:
         with:
           filename: coverage/cobertura.xml
       - name: Adding markdown
-        run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
+        run: cat "code-coverage-results.md" >> $GITHUB_STEP_SUMMARY
