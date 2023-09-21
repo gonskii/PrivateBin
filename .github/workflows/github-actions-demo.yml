@@ -20,6 +20,6 @@ jobs:
       - uses: php-actions/composer@v6 # or alternative dependency management
       - uses: php-actions/phpunit@v3 
         with:
-          php_extensions: gd, "xdebug"
+          php_extensions: gd, xdebug
           version: 9.6.11
           coverage_cobertura: coverage/cobertura.xml
