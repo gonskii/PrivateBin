@@ -23,3 +23,6 @@ jobs:
           php_extensions: gd xdebug
           version: 9.6.11
           coverage_cobertura: coverage/cobertura.xml
+        env:
+           XDEBUG_MODE: coverage
+ 
