@@ -20,6 +20,4 @@ jobs:
       - uses: php-actions/composer@v6 # or alternative dependency management
       - uses: php-actions/phpunit@v3 
         with:
-          php_extensions: gd, xdebug
-
-  
+          php_extensions: gd
