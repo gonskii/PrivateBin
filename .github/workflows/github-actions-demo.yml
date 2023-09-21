@@ -22,3 +22,4 @@ jobs:
         with:
           php_extensions: gd
           version: 9.6.11
+          coverage_cobertura: coverage.xml
