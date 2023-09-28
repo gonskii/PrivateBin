@@ -38,4 +38,5 @@ jobs:
         with:
           php_version: 8.1
           path: lib/
-          standard: phpcs.xml
+          standard: PSR1
+
