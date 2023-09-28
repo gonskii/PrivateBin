@@ -27,7 +27,7 @@ class Configuration
      *
      * @var array
      */
-    private $_configuration;
+    private $configuration;
 
     /**
      * default configuration
@@ -185,39 +185,87 @@ class Configuration
                 ($from = strlen($section) - strlen($opts)) >= 0 &&
                 strpos($section, $opts, $from) !== false
             ) {
-                if (is_int(current($values))) {
-                    $config[$section] = array_map('intval', $config[$section]);
+             //Nouvelle partie
+
+                foreach ($sections as $section => $values) {
+    
+    $conditionMet = (
+        $section !== 'model_options' &&
+        ($from = strlen($section) - strlen($opts)) >= 0 &&
+        strpos($section, $opts, $from) !== false
+    );
+
+    if ($conditionMet) {
+        if (is_int(current($values))) {
+            $config[$section] = array_map('intval', $config[$section]);
+        }
+        $this->_configuration[$section] = $config[$section];
+        continue;
+    }
+
+    foreach ($values as $key => $val) {
+        if ($key == 'dir') {
+            $val = PATH . $val;
+        }
+        $result = $val;
+        if (array_key_exists($key, $config[$section])) {
+            if ($val === null) {
+                $result = $config[$section][$key];
+            } elseif (is_bool($val)) {
+                $val = strtolower($config[$section][$key]);
+                if (in_array($val, array('true', 'yes', 'on'))) {
+                    $result = true;
+                } elseif (in_array($val, array('false', 'no', 'off'))) {
+                    $result = false;
+                } else {
+                    $result = (bool) $config[$section][$key];
                 }
-                $this->_configuration[$section] = $config[$section];
+            } elseif (is_int($val)) {
+                $result = (int) $config[$section][$key];
+            } elseif (is_string($val) && !empty($config[$section][$key])) {
+                $result = (string) $config[$section][$key];
             }
-            // check for missing keys and set defaults if necessary
-            else {
-                foreach ($values as $key => $val) {
-                    if ($key == 'dir') {
-                        $val = PATH . $val;
-                    }
-                    $result = $val;
-                    if (array_key_exists($key, $config[$section])) {
-                        if ($val === null) {
-                            $result = $config[$section][$key];
-                        } elseif (is_bool($val)) {
-                            $val = strtolower($config[$section][$key]);
-                            if (in_array($val, array('true', 'yes', 'on'))) {
-                                $result = true;
-                            } elseif (in_array($val, array('false', 'no', 'off'))) {
-                                $result = false;
-                            } else {
-                                $result = (bool) $config[$section][$key];
-                            }
-                        } elseif (is_int($val)) {
-                            $result = (int) $config[$section][$key];
-                        } elseif (is_string($val) && !empty($config[$section][$key])) {
-                            $result = (string) $config[$section][$key];
-                        }
-                    }
-                    $this->_configuration[$section][$key] = $result;
-                }
-            }
+        }
+        $this->_configuration[$section][$key] = $result;
+        }
+    }
+
+                
+
+            //Ancienne partie    
+            // if (is_int(current($values))) {
+            //         $config[$section] = array_map('intval', $config[$section]);
+            //     }
+            //     $this->_configuration[$section] = $config[$section];
+            // }
+            // // check for missing keys and set defaults if necessary
+            // else {
+            //     foreach ($values as $key => $val) {
+            //         if ($key == 'dir') {
+            //             $val = PATH . $val;
+            //         }
+            //         $result = $val;
+            //         if (array_key_exists($key, $config[$section])) {
+            //             if ($val === null) {
+            //                 $result = $config[$section][$key];
+            //             } elseif (is_bool($val)) {
+            //                 $val = strtolower($config[$section][$key]);
+            //                 if (in_array($val, array('true', 'yes', 'on'))) {
+            //                     $result = true;
+            //                 } elseif (in_array($val, array('false', 'no', 'off'))) {
+            //                     $result = false;
+            //                 } else {
+            //                     $result = (bool) $config[$section][$key];
+            //                 }
+            //             } elseif (is_int($val)) {
+            //                 $result = (int) $config[$section][$key];
+            //             } elseif (is_string($val) && !empty($config[$section][$key])) {
+            //                 $result = (string) $config[$section][$key];
+            //             }
+            //         }
+            //         $this->_configuration[$section][$key] = $result;
+            //     }
+            // }
         }
 
         // support for old config file format, before the fork was renamed and PSR-4 introduced
