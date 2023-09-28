@@ -471,7 +471,7 @@ class Controller
      * @param  string $message
      * @param  array $other
      */
-    private function _return_message($status, $message, $other = array())
+    private function return_message($status, $message, $other = array())
     {
         $result = array('status' => $status);
         if ($status) {
