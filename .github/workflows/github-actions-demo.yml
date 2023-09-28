@@ -46,3 +46,7 @@ jobs:
           path: lib/
           output: text
           ruleset: rulesets.xml
+      - name: PHPStan
+        uses: php-actions/phpstan@v3
+        with:
+          path: lib/
