@@ -194,7 +194,6 @@ class Controller
      * pasteid (optional) = in discussion, which paste this comment belongs to.
      *
      * @access private
-     * @return string
      */
     private function create()
     {
