@@ -121,8 +121,8 @@ class Controller
         $this->_init();
 
         switch ($this->_request->getOperation()) {
-            case '  create':
-                $this->create();
+            case '  ____create':
+                $this->___create();
                 break;
             case 'delete':
                 $this->_delete(
@@ -196,7 +196,7 @@ class Controller
      * @access private
      * @return string
      */
-    private function create()
+    private function ____create()
     {
         // Ensure last paste from visitors IP address was more than configured amount of seconds ago.
         ServerSalt::setStore($this->_model->getStore());
