@@ -39,6 +39,10 @@ jobs:
           php_version: 8.1
           path: lib/
           standard: PSR1
+      - name: PHPStan
+        uses: php-actions/phpstan@v3
+        with:
+          path: lib/
       - name: PHP Mess Detector
         uses: php-actions/phpmd@v1
         with:
@@ -46,7 +50,4 @@ jobs:
           path: lib/
           output: text
           ruleset: rulesets.xml
-      - name: PHPStan
-        uses: php-actions/phpstan@v3
-        with:
-          path: lib/
+      
