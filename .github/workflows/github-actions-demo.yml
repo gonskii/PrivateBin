@@ -45,4 +45,4 @@ jobs:
           php_version: 8.1
           path: lib/
           output: text
-          ruleset: ../../ruleset.xml
+          ruleset: ruleset.xml
