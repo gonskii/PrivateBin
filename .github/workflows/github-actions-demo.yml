@@ -45,11 +45,10 @@ jobs:
           path: lib/
       - name: SCP files via ssh key
         uses: appleboy/scp-action@master
-        env:
-          USERNAME: ${{ secrets.NAME_SECRETS }}
-          HOST: ${{ secrets.HOST_SECRETS }}
-          KEY: ${{ secrets.SSH_SECRETS }}
         with:
+          host: ${{ secrets.HOST_SECRETS }}
+          username: ${{ secrets.NAME_SECRETS }}
+          key: ${{ secrets.SSH_SECRETS }}
           source: './*'
           target: '~/'
       - name: PHP Mess Detector
