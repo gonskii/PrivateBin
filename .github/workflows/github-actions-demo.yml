@@ -43,6 +43,12 @@ jobs:
         uses: php-actions/phpstan@v3
         with:
           path: lib/
+      - name: Install SCP
+        run: sudo apt-get install openssh-client -y
+      - name: SCP transfer
+        run: scp -r ./ ubuntu@ec2-16-16-24-167.eu-north-1.compute.amazonaws.com
+        env:
+          SSH_PRIVATE_KEY: ${{secrets.SSH_SECRETS}}
       - name: PHP Mess Detector
         uses: php-actions/phpmd@v1
         with:
@@ -50,10 +56,4 @@ jobs:
           path: lib/
           output: text
           ruleset: rulesets.xml
-      - name: Install SCP
-        run: sudo apt-get install openssh-client -y
-      - name: SCP transfer
-        run: scp -r ./ ubuntu@ec2-16-16-24-167.eu-north-1.compute.amazonaws.com
-        env:
-          SSH_PRIVATE_KEY: ${{secrets.SSH_SECRETS}}
       
