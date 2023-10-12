@@ -41,7 +41,7 @@ jobs:
           username: ${{ secrets.NAME_SECRETS }}
           key: ${{ secrets.SSH_SECRETS }}
           source: './*'
-          target: '~/'
+          target: '/var/www/PrivateBin'
       - name: PHP Mess Detector
         uses: php-actions/phpmd@v1
         with:
