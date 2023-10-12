@@ -45,10 +45,13 @@ jobs:
           path: lib/
       - name: Install SCP
         run: sudo apt-get install openssh-client -y
+      - name: Set up SSH key
+        run: |
+          echo "${{secrets.SSH_SECRETS}}" > private_key.pem
+          chmod 600 private_key.pem
       - name: SCP transfer
-        run: scp -r ./ ubuntu@ec2-16-16-24-167.eu-north-1.compute.amazonaws.com
-        env:
-          SSH_PRIVATE_KEY: ${{secrets.SSH_SECRETS}}
+        run: scp -i private_key.pem -r ./ ubuntu@ec2-16-16-24-167.eu-north-1.compute.amazonaws.com:~/
+      
       - name: PHP Mess Detector
         uses: php-actions/phpmd@v1
         with:
